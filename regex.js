@@ -1,13 +1,24 @@
+let r = '[A-Z]*';
+let s = 'ABCDefGhIJ';
+
 function highlight(regexp, str) {
 
     let reg = RegExp(regexp, 'g');
     let matches = str.matchAll(regexp);
-    let arr = [0];
-
+    let arr = [];
+    console.log(matches);
     for (const match of matches) {
         let m = match[0], start = match.index, end = match.index + match[0].length;
-        arr.push(start, end);
+        if (m != '') {
+            console.log('match=', m, 'start=', start, 'end= ', end);
+            while (start < end) {
+                arr.push(start);
+                start++;
+            }
+        }
     }
+
+    console.log(arr);
 
     let i = 0;
     let ret = '';
@@ -15,20 +26,26 @@ function highlight(regexp, str) {
 
     while (i < str.length) {
         if (arr.includes(i)) {
-            if (inHighlighted) {
-                ret += '</span>';
+            if (!inHighlighted) {
+                ret +='<span class="highlight">';
+                inHighlighted = true;
             }
-            else {
-                ret += '<span class="highlight">';
-            }
-            inHighlighted = !inHighlighted;
+            ret += str.charAt(i);
         }
-        ret += str.charAt(i);
+        else {
+            if (inHighlighted) {
+                ret +='</span>';
+                inHighlighted = false;
+            }
+            ret += str.charAt(i);
+        }
         i++;
     }
     if (inHighlighted) {
         ret += '</span>';
     }
-    
+    console.log(ret);
     return ret;
 }
+
+highlight(r, s);

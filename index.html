@@ -17,7 +17,7 @@
     <script type="text/javascript" src="regex.js"></script>
 
     <style> 
-      #highlight {
+      span {
         background-color: yellow;
       }
     </style>
@@ -29,10 +29,8 @@
 
     <textarea id="stringtocheck" placeholder="Enter a string to check"></textarea>
 
-    <button type="button" name="parse" onclick="highlight(document.getElementById('regexinput'), document.getElementById('stringtocheck'))">Parse</button>
+    <button type="button" name="parse" onclick="document.getElementById('result').innerHTML = highlight(document.getElementById('regexinput').value, document.getElementById('stringtocheck').value)">Parse</button>
 
-    <p id="result"></p>
-
-
+    <p id="result">Test result</p>
   </body>
 </html>
